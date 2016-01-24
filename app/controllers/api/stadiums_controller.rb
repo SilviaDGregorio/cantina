@@ -38,7 +38,7 @@ class Api::StadiumsController < ApplicationController
 
 	    # Never trust parameters from the scary internet, only allow the white list through.
 	    def stadium_params
-	      params.permit(:id,:priceBeer)
+	      params.permit(:id,:priceBeer,:stockBeers)
 	    end
 
 end

@@ -9,7 +9,10 @@ RSpec.describe Api::StadiumsController, :type => :controller do
       @stadium=Stadium.offset(rand(Stadium.count)).first
       @stadium_id_random = @stadium.id
     end
-
+    after do
+      @stadium.destroy
+    end
+    
     it 'returns the all stadiums' do
       get 'index', format: :json
       json[ "stadiums" ].each do |status|
