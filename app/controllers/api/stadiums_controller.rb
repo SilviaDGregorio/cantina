@@ -1,5 +1,5 @@
 class Api::StadiumsController < ApplicationController
-	before_action :set_stadium, only: [:show, :edit, :update, :destroy,:changePriceBeer]
+	before_action :set_stadium, only: [:show, :edit, :update, :destroy,:changePriceBeer,:getStock]
 	respond_to :json
 
 	# GET /api/stads.json
@@ -17,10 +17,23 @@ class Api::StadiumsController < ApplicationController
 	    end		
 	end
 
+	def getStock
+		if(@stadium)
+			@response ={msg: 'Get stock from: ' + @stadium.name,error: false, stockBeers:@stadium.stockBeers}
+		else
+			@response ={msg: 'Make sure the params are correct',error: true, stockBeers:0}
+		end
+	end
+	
 	private
+
 	    # Use callbacks to share common setup or constraints between actions.
-	    def set_stadium
-	      @stadium = Stadium.find(params[:id])
+	   	def set_stadium	   
+			if Stadium.exists?(:id => params[:id])
+				@stadium = Stadium.find(params[:id])			
+			else
+				@stadium = nil
+			end    
 	    end
 
 	    # Never trust parameters from the scary internet, only allow the white list through.

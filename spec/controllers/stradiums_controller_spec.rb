@@ -25,11 +25,27 @@ RSpec.describe Api::StadiumsController, :type => :controller do
       end
     end
 
+    it 'show one stadum with invalid id' do
+      get 'show',format: :json,id: (Stadium.count + 1)
+      expect(json["response"]["error"]).to eq(true)
+    end
+
     it 'change priceBeer' do
       post "changePriceBeer", format: :json, id: @stadium_id_random,priceBeer: '100'
       price =Stadium.find(@stadium_id_random).priceBeer
       expect(price).to eq(100)
     end
 
+    it 'get stockBeers with valid stadium' do
+      get 'getStock',format: :json, id: @stadium_id_random
+      expect(json["response"]["error"]).to eq(false)
+      expect(json["response"]["stockBeers"]).to eq(@stadium.stockBeers)
+    end
+
+    it 'get stockBeers with invalid stadium' do
+      get 'getStock',format: :json, id: (Stadium.count + 1)
+      expect(json["response"]["error"]).to eq(true)
+    end
+    
   end
 end
