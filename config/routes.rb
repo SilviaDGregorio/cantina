@@ -3,7 +3,8 @@ Rails.application.routes.draw do
     resources :stadiums, only: [:index, :show] do
 		resources :sales, only: [:index, :show] do
 			collection do
-				post 'saleBeers/:numberBeers',to: 'sales#saleBeers', as: 'sale_beers'
+				post 'saleBeers',to: 'sales#saleBeers', as: 'sale_beers'
+				post 'addBeers',to: 'sales#addBeers', as: 'add_beers'
 			end
 		end
 		collection do

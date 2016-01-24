@@ -13,7 +13,7 @@ class Api::SalesController < ApplicationController
 			@stadium=Stadium.find(params[:stadium_id])
 			stock = @stadium.stockBeers.to_i-numberBeers
 			if(stock>=0)
-				price = (numberBeers)*@stadium.priceBeer
+				price = numberBeers*@stadium.priceBeer
 				sale=Sale.create(stadium_id: @stadium.id,n_beers: numberBeers,price: price,information: information)
 				if(sale)
 					@stadium.update(:stockBeers => stock);
@@ -27,6 +27,27 @@ class Api::SalesController < ApplicationController
 		end
 	end
 
+	def addBeers
+		if(validateParams)
+			@response
+		else
+			information = params[:information] ? params[:information] : ''
+			numberBeers = params[:numberBeers].to_i
+			
+			@stadium=Stadium.find(params[:stadium_id])
+			stock = @stadium.stockBeers.to_i+numberBeers
+
+			price = numberBeers*(@stadium.priceBeer/10)
+			sale=Sale.create(stadium_id: @stadium.id,n_beers: numberBeers,price: price,information: information,type_transaction: 1)
+			if(sale)
+				@stadium.update(:stockBeers => stock);
+				@response= { msg: 'Transacction has been completed successfully' , error: false, id: sale.id}
+			else
+				@response= { msg: 'Transacction error, please try again later' , error: true}
+			end
+
+		end
+	end
 
 	
 	private

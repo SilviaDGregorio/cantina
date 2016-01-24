@@ -37,6 +37,21 @@ RSpec.describe Api::SalesController, :type => :controller do
       sale=@stadium.sales.find(sale_id)
       expect(sale.price).to eq(priceSell)
     end
-    
+
+    it 'add 9 beers successfully' do
+      beersOnStock = @stadium.stockBeers.to_i + 9
+      post 'addBeers', format: :json, stadium_id: @stadium_id_random, numberBeers: 9
+      stadium_before= Stadium.find(@stadium_id_random);
+      expect( json['response']['error']).to eq(false)
+      expect(stadium_before.stockBeers).to eq(beersOnStock);
+    end
+
+    it 'check price for add stock' do
+      post 'addBeers', format: :json, stadium_id: @stadium_id_random, numberBeers: 10
+      priceSell = 10 * (@stadium.priceBeer.to_i/10)
+      sale_id = json['response']['id']
+      sale=@stadium.sales.find(sale_id)
+      expect(sale.price).to eq(priceSell)
+    end
   end
 end
