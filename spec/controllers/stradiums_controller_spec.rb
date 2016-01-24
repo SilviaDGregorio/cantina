@@ -16,7 +16,7 @@ RSpec.describe Api::StadiumsController, :type => :controller do
     it 'returns the all stadiums' do
       get 'index', format: :json
       json[ "stadiums" ].each do |status|
-        expect(status.keys).to contain_exactly("name", "address","capacity","stockBeers","priceBeer")
+        expect(status.keys).to contain_exactly("name", "address","capacity","stockBeers","beersSold","priceBeer")
       end
       expect(json["stadiums"].size).to eq(10)
     end
@@ -61,5 +61,13 @@ RSpec.describe Api::StadiumsController, :type => :controller do
       expect(json["response"]["error"]).to eq(true)
     end
     
+    it 'get earnings' do
+      stadium=FactoryGirl.create(:stadium,stockBeers: 0,priceBeer:100)
+      FactoryGirl.create(:sale,stadium_id: stadium.id,n_beers: 10,price: 1000,type_transaction: 0)
+      FactoryGirl.create(:sale,stadium_id: stadium.id,n_beers: 10,price: 100,type_transaction: 1)
+      post 'getEarnings',format: :json, id: stadium.id, date_start: Date.today-1 ,date_end: Date.today+1
+      expect(json["response"]["error"]).to eq(false)
+      expect(json["response"]["earnings"]).to eq(900)
+    end
   end
 end

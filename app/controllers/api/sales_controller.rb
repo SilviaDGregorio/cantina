@@ -2,7 +2,7 @@ class Api::SalesController < ApplicationController
 	before_action :set_sales, only: [:show, :edit, :update, :destroy,:changePriceBeer,:getStock]
 	respond_to :json
 
-
+	# POST /api/stadiums/:stadium_id/sales/saleBeers  -> numberBeers
 	def saleBeers
 		if(validateParams)
 			@response
@@ -27,6 +27,7 @@ class Api::SalesController < ApplicationController
 		end
 	end
 
+	# POST /api/stadiums/:stadium_id/sales/addBeers  -> numberBeers
 	def addBeers
 		if(validateParams)
 			@response

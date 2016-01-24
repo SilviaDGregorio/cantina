@@ -8,5 +8,8 @@ class Sale < ActiveRecord::Base
 	validates :type_transaction, presence: true
 	validates :price, presence: true
 
+	scope :salesAddDate, lambda{ |date_start,date_end| where("created_at BETWEEN ? AND ? AND type_transaction =1", date_start,date_end) }
+	scope :salesSoldDate, lambda{ |date_start,date_end| where("created_at BETWEEN ? AND ? AND type_transaction =0", date_start,date_end) }
 
 end
+
