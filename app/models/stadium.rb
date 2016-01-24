@@ -5,4 +5,5 @@ class Stadium < ActiveRecord::Base
 	validates :stockBeers, presence: true
 	validates :priceBeer, presence: true
 
+	has_many :sales
 end

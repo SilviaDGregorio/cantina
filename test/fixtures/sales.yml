@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stadium_id: 1
+  information: MyString
+  n_beers: 1
+  price: 
+  type_transaction: 
+
+two:
+  stadium_id: 1
+  information: MyString
+  n_beers: 1
+  price: 
+  type_transaction: 

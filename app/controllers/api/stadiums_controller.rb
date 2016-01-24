@@ -7,8 +7,7 @@ class Api::StadiumsController < ApplicationController
 		@stadiums = Stadium.all.order(:name)
 	end
 
-	def show
-	end
+	def show;end
 
 	def changePriceBeer
 	    if @stadium.update_columns(stadium_params)
@@ -17,7 +16,7 @@ class Api::StadiumsController < ApplicationController
 	      @response= { msg: 'Error, please try again later' , error: true} 
 	    end		
 	end
-	
+
 	private
 	    # Use callbacks to share common setup or constraints between actions.
 	    def set_stadium
