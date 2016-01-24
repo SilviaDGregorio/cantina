@@ -1,9 +1,33 @@
-* Entrada de dos personas con el mismo ticket
-*Entrada y salida y volver a entrar
-*Entrar sin ticket
-*Comprar entrada
-*Comprar la cerveza en el puesto 
-*Ir al partido con el ticket de otro partido
-*Ir al partid co un ticket de otr partido cancelado
-*Querer comprar una cerveza cuando no quedan en el stock
+Usuarios
 
+*Entrada de dos personas con el mismo ticket
+	-La aplicación devolvería un ticket no válido al estar ya validado el ticket la primera vez
+*Entrada y salida y volver a entrar
+	-La aplicación no dejaría volver a pasar al usuario, pero el encargado que hubiese en las instalaciones podría validar si esa persona es la misma que pone en el ticket y dejarle pasar de nuevo.
+*Comprar entrada
+	-Devolvería un ticket en formato electrónico para poder llevarlo al partido en el caso de que quedasen entradas
+	-Si no quedan entradas te devolvería un error diciendo que no se pueden comprar entradas, ya están agotadas
+*Comprar la cerveza en el puesto 
+	-En la aplicación se registraría una compra en el estadio si quedan cervezas.
+*Comprar una cerveza cuando en el stock no quedan
+	-La aplicación no crearía constancia de esa compra,pero daría error y habrá que revisar el stock
+*Ir al partido con el ticket de otro partido
+	-El partido está referenciado por un identificador y no se podrá entrar a ese partido con el id de otro partido.
+*Ir al partido con un ticket de otro partido cancelado
+	-Como en el caso anterior, no se podrá acceder
+*Querer comprar una cerveza cuando no quedan en el stock
+	-No sepodrá comprar cervezas si no quedan en el stock
+
+
+Empleados
+
+*Añadir stock de cervezas
+	-Cuando el reponedor del estadio da la orden de reponer en stock, la aplicación aumenta el stock del estadio y queda constancia en el sale.
+*Cambiar el precio de la cerveza
+	-La aplicación te devuelve un mensaje de cambio aceptado si no hay ningún problema.
+*Consultar el stock
+	-Devuelve el numero de cervezas que quedan en el estadio.
+*Consultar las cervezas vendidas
+	-Devuelve el número de cervezas vendidas
+*Consultar el dinero ganado entre dos fechas
+	-Devuelve el dinero ganado entre dos fechas en el estadio
