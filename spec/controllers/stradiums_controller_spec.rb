@@ -49,6 +49,17 @@ RSpec.describe Api::StadiumsController, :type => :controller do
       get 'getStock',format: :json, id: (Stadium.count + 1)
       expect(json["response"]["error"]).to eq(true)
     end
+
+    it 'get beersSold with valid stadium' do
+      get 'getBeersSold',format: :json, id: @stadium_id_random
+      expect(json["response"]["error"]).to eq(false)
+      expect(json["response"]["beersSold"]).to eq(@stadium.beersSold)
+    end
+
+    it 'get beersSold with invalid stadium' do
+      get 'getBeersSold',format: :json, id: (Stadium.count + 1)
+      expect(json["response"]["error"]).to eq(true)
+    end
     
   end
 end

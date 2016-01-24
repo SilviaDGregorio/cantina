@@ -1,5 +1,5 @@
 class Api::StadiumsController < ApplicationController
-	before_action :set_stadium, only: [:show, :edit, :update, :destroy,:changePriceBeer,:getStock]
+	before_action :set_stadium, only: [:show, :edit, :update, :destroy,:changePriceBeer,:getStock,:getBeersSold]
 	respond_to :json
 
 	# GET /api/stads.json
@@ -24,11 +24,19 @@ class Api::StadiumsController < ApplicationController
 			@response ={msg: 'Make sure the params are correct',error: true, stockBeers:0}
 		end
 	end
-	
+
+	def getBeersSold
+		if(@stadium)
+			@response ={msg: 'Get beers sold from: ' + @stadium.name,error: false, beersSold:@stadium.beersSold}
+		else
+			@response ={msg: 'Make sure the params are correct',error: true, beersSold:0}
+		end
+	end
+
 	private
 
 	    # Use callbacks to share common setup or constraints between actions.
-	   	def set_stadium	   
+	   	def set_stadium 
 			if Stadium.exists?(:id => params[:id])
 				@stadium = Stadium.find(params[:id])			
 			else

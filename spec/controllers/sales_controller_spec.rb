@@ -16,10 +16,12 @@ RSpec.describe Api::SalesController, :type => :controller do
 
     it 'sell 9 beers successfully' do
       beersOnStock = @stadium.stockBeers.to_i - 10
+      beersSold =@stadium.beersSold.to_i+10
       post 'saleBeers', format: :json, stadium_id: @stadium_id_random, numberBeers: 10
       stadium_before= Stadium.find(@stadium_id_random);
       expect( json['response']['error']).to eq(false)
       expect(stadium_before.stockBeers).to eq(beersOnStock);
+      expect(stadium_before.beersSold).to eq(beersSold);
     end
 
     it 'sell more beer than there are on stock' do

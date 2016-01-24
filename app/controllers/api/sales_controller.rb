@@ -16,7 +16,7 @@ class Api::SalesController < ApplicationController
 				price = numberBeers*@stadium.priceBeer
 				sale=Sale.create(stadium_id: @stadium.id,n_beers: numberBeers,price: price,information: information)
 				if(sale)
-					@stadium.update(:stockBeers => stock);
+					@stadium.update(:stockBeers => stock,:beersSold=> numberBeers);
 					@response= { msg: 'Transacction has been completed successfully' , error: false, id: sale.id}
 				else
 					@response= { msg: 'Transacction error, please try again later' , error: true}

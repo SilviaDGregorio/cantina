@@ -5,5 +5,6 @@ FactoryGirl.define do
 		address {Faker::Address.street_address}
 		stockBeers {Faker::Number.number(3)}
 		priceBeer {Faker::Number.number(3)}
+		beersSold 0
 	end
 end
