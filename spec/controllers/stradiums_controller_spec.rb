@@ -6,7 +6,8 @@ RSpec.describe Api::StadiumsController, :type => :controller do
   describe "stadium" do
     before do
       FactoryGirl.create_list(:stadium, 10)
-      @stadium_id_random = Stadium.offset(rand(Stadium.count)).first
+      @stadium=Stadium.offset(rand(Stadium.count)).first
+      @stadium_id_random = @stadium.id
     end
 
     it 'returns the all stadiums' do
@@ -18,10 +19,9 @@ RSpec.describe Api::StadiumsController, :type => :controller do
     end
     
     it 'show one stadum' do
-      stadium=@stadium_id_random
       get 'show',format: :json,id:@stadium_id_random
       json[ "stadium" ].each do |column|
-        expect(column[1]).to eq(stadium[column[0]])
+        expect(column[1]).to eq(@stadium[column[0]])
       end
     end
 
